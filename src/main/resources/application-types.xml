@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="customertype" format="csv">
+      <types:shape format="weave"><![CDATA[%dw 2.0
+
+type customertype = Array<{|  id: Number,   name: String,   contact: Number,   address: String,   item: String,   quantity: Number,   amount: Number|}>
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+      </types:properties>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#223d736e-d014-4d4c-ac2e-648f4df59489">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="customertype"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#98a9ec60-90b7-4591-bf0b-05e34fada5f4">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="customertype"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#a5ca824e-1225-4de6-94f8-ea75065b0a33"/>
+</types:mule>

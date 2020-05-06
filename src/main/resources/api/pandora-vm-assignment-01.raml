@@ -1,0 +1,30 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/a647888f-02fd-4f7f-9c4a-0919c9355363/ # 
+title: pandora-vm-assignment-01
+description: restful application for publishing and consuming the message to vm
+
+types:
+  Customer: !include datatype/Customer.raml
+  Error: !include datatype/Error.raml
+
+/customer:
+  description: api to publish the cutomer data to vm and persist to file
+  displayName: publish to vm api
+  post:
+    description: post api to publish the customer details to vm
+    body:
+      application/json:
+        type: Customer
+    responses:
+      200:
+        description: success
+        body:
+          application/json:
+            type: string
+            example: Customer detail published to vm
+      500:
+        description: Internal Server Error
+        body:
+          application/json:
+            type: Error
+            example: !include example/Error.raml
